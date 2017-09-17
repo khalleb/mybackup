@@ -23,6 +23,7 @@ public class Msg {
 	
 	// STICKS THE MESSAGE FROM THE FILE PROPERTIES FOR PRINTING.
 	public static void msgGetProperties(String key_properties) {
+		//tes
 		
 	}
 	
