@@ -1,0 +1,40 @@
+@CHARSET "ISO-8859-1";
+
+html {
+	height: 100%;
+	background: #18BC9C;
+}
+
+header.masthead {
+	padding-top: 100px;
+	padding-bottom: 50px;
+	text-align: center;
+	color: white;
+	background: #18BC9C;
+}
+
+header.masthead img {
+	display: block;
+	margin: 0 auto 20px;
+}
+
+header.masthead .intro-text .name {
+	font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial,
+		sans-serif;
+	font-size: 5em;
+	font-weight: 700;
+	display: block;
+
+}
+
+header.masthead .intro-text .skills {
+	font-size: 2.25em;
+	font-weight: 300;
+}
+
+.btn-default {
+	color: #ffffff;
+	background-color: #18BC9C;
+	border-color: #ffffff;
+	border-width: 3px;
+}
