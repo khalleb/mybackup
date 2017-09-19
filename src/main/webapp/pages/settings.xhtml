@@ -1,60 +1,180 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 </h:head>
 <h:body>
 	<ui:composition template="/template/layout.xhtml">
 		<ui:define name="content">
-			
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
+			<div class="container">
+				<div id="Tabs" role="tabpanel">
+					<!-- Nav tabs - MENU -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="active"><a href="#postgresConfig"
+							aria-controls="postgresConfig" role="tab" data-toggle="tab">#{msg['config.aba.postgres']}</a></li>
+						<li><a href="#backup" aria-controls="backup" role="tab"
+							data-toggle="tab">#{msg['config.aba.backup']}</a></li>
+						<li><a href="#googleDrive" aria-controls="googleDrive"
+							role="tab" data-toggle="tab">#{msg['config.aba.google.drive']}</a></li>
+					</ul>
+					<!-- Body Pane Postgres -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="postgresConfig">
+							<p:growl autoUpdate="true"></p:growl>
+							<div id="configDIVPostgres" class="container-fluid">
+								<h4 class="page-header">#{msg['config.head.postgres']}</h4>
 
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h1>This is default header</h1>
-		<h6>dfd</h6>
-		<h1>Aqui é o final</h1>
+								<div class="row">
+									<div class="form-group col-xs-12 input-group-md">
+										<label>#{msg['config.pgdump']}</label>
+										<p:inputText id="postgesPGDumpInput" class="form-control"
+											required="true" requiredMessage="#{msg['persitir.pgdump']}"
+											placeholder="#{msg['config.placeholder.pgdump']}"
+											maxlength="60"
+											value="#{propertiesCTRL.propertiesTO.pathPGDump}">
+											<f:validateLength maximum="60" minimum="5"></f:validateLength>
+										</p:inputText>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-4 input-group-md">
+										<label>#{msg['config.host']}</label>
+										<p:inputText id="postgresHostNameInput" class="form-control"
+											required="true" requiredMessage="#{msg['persitir.host']}"
+											placeholder="#{msg['config.placeholder.host']}"
+											maxlength="15" value="#{propertiesCTRL.propertiesTO.host}">
+											<f:validateLength maximum="15" minimum="4"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-4 input-group-md">
+										<label>#{msg['config.porta']}</label>
+										<p:inputText id="postgresPortaInput" class="form-control"
+											required="true" requiredMessage="#{msg['persitir.porta']}"
+											placeholder="#{msg['config.placeholder.porta']}"
+											maxlength="5" value="#{propertiesCTRL.propertiesTO.porta}">
+											<f:validateLength maximum="5" minimum="2"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-4 input-group-md">
+										<label>#{msg['config.nome.banco']}</label>
+										<p:inputText id="postgresNomeBancoInput" class="form-control"
+											required="true"
+											requiredMessage="#{msg['persitir.nome.banco']}"
+											placeholder="#{msg['config.placeholder.nome.banco']}"
+											maxlength="20"
+											value="#{propertiesCTRL.propertiesTO.nomeBanco}">
+											<f:validateLength maximum="20" minimum="1"></f:validateLength>
+										</p:inputText>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6 input-group-md">
+										<label>#{msg['config.usuario']}</label>
+										<p:inputText id="postgresUsuarioInput" class="form-control"
+											required="true" requiredMessage="#{msg['persitir.usuario']}"
+											placeholder="#{msg['config.placeholder.usuario']}"
+											maxlength="40" value="#{propertiesCTRL.propertiesTO.usuario}">
+											<f:validateLength maximum="40" minimum="1"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-6 input-group-md">
+										<label>#{msg['config.senha']}</label>
+										<p:password id="postgresSenhaInput" class="form-control"
+											required="true" requiredMessage="#{msg['persitir.senha']}"
+											placeholder="#{msg['config.placeholder.senha']}"
+											redisplay="true" maxlength="40"
+											value="#{propertiesCTRL.propertiesTO.senha}">
+											<f:validateLength maximum="40" minimum="1"></f:validateLength>
+										</p:password>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- ************** TAB BACKUP LOCAL CONFIG ************** -->
+						<div role="tabpanel" class="tab-pane" id="backup">
+							<p:growl autoUpdate="true"></p:growl>
+							<div id="configDibBackup" class="container-fluid">
+								<h4 class="page-header">#{msg['config.head.backup']}</h4>
+
+								<div class="row">
+									<div class="form-group col-md-6 input-group-md">
+										<label>#{msg['config.local.backup']}</label>
+										<p:inputText id="backupLocalInput" class="form-control"
+											required="true"
+											requiredMessage="#{msg['persitir.local.backup']}"
+											placeholder="#{msg['config.placeholder.local.backup']}"
+											maxlength="60"
+											value="#{propertiesCTRL.propertiesTO.pathBackup}">
+											<f:validateLength maximum="60" minimum="3"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-6 input-group-md">
+										<label>#{msg['config.horario.backup']}</label>
+										<p:inputMask id="localHoraInput" class="form-control"
+											required="true"
+											requiredMessage="#{msg['persitir.horario.backup']}"
+											mask="99:99"
+											validatorMessage="Verifique o formato da hora do backup"
+											placeholder="#{msg['config.placeholder.horario.backup']}"
+											maxlength="5" value="#{propertiesCTRL.propertiesTO.hora}">
+											<f:validateLength maximum="5" minimum="4"></f:validateLength>
+											<f:validateRegex
+												pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"></f:validateRegex>
+										</p:inputMask>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ************** TAB BACKUP GOOGLE DRIVE CONFIG ************** -->
+						<div role="tabpanel" class="tab-pane" id="googleDrive">
+							<p:growl autoUpdate="true"></p:growl>
+							<div id="googleDrive" class="container-fluid">
+								<h4 class="page-header">#{msg['config.head.drive']}</h4>
+
+								<div class="row">
+									<div class="form-group col-xs-12 input-group-md">
+										<label>#{msg['config.drive.secret']}</label>
+										<p:inputText id="googleDriveSecretInput" class="form-control"
+											required="true"
+											placeholder="#{msg['config.placeholder.google.secret']}"
+											maxlength="120"
+											value="#{propertiesCTRL.propertiesTO.pathBackup}">
+											<f:validateLength maximum="120" minimum="3"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-12 input-group-md">
+										<label>#{msg['config.drive.id']}</label>
+										<p:inputText id="googleDriveIDInput" class="form-control"
+											required="true"
+											placeholder="#{msg['config.placeholder.google.id']}"
+											maxlength="120"
+											value="#{propertiesCTRL.propertiesTO.pathBackup}">
+											<f:validateLength maximum="120" minimum="3"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-12 input-group-md">
+										<label>#{msg['config.drive.nome.pasta']}</label>
+										<p:inputText id="googleDriveIDInput" class="form-control"
+											required="true"
+											placeholder="#{msg['config.placeholder.google.pasta']}"
+											maxlength="120"
+											value="#{propertiesCTRL.propertiesTO.pathBackup}">
+											<f:validateLength maximum="120" minimum="3"></f:validateLength>
+										</p:inputText>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</ui:define>
 	</ui:composition>
-
 </h:body>
 </html>
