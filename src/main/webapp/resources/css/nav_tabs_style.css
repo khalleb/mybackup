@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+
+.nav-tabs>li>a {
+	background-color: #18BC9C;
+}
+
+a {
+	color: #ffffff;
+}
+
