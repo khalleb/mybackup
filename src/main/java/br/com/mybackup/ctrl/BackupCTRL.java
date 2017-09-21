@@ -1,4 +1,4 @@
-package br.com.mybackup.bo;
+package br.com.mybackup.ctrl;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
