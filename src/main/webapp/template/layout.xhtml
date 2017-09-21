@@ -1,25 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="Khalleb Ribeiro" />
 
+	<title>#{msg['sistema.nome']}</title>
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="Khalleb Ribeiro" />
+	<!--  JQuery -->
+	<script src="../resources/bootstrap_3.3.7/jquery/jquery_3_2_1.min.js"></script>
 
-<title>#{msg['sistema.nome']}</title>
-<!--  JQuery -->
-<script src="../resources/bootstrap_3.3.7/jquery/jquery_3_2_1.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script src="../resources/bootstrap_3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap core JavaScript -->
-<script src="../resources/bootstrap_3.3.7/js/bootstrap.min.js"></script>
+	<!-- Bootstrap core CSS -->
+	<link href="../resources/bootstrap_3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 
-<!-- Bootstrap core CSS -->
-<link href="../resources/bootstrap_3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- CSS Style -->
+	<link href="../resources/css/nav_tabs_style.css" rel="stylesheet" />
 
-<style>
+	<!-- CSS Style -->
+	<link href="../resources/css/buttons_style.css" rel="stylesheet" />
+
+	<style>
 html {
 	margin-bottom: 60px;
 }
@@ -28,9 +33,7 @@ html {
 	background-color: #ffffff;
 }
 </style>
-
-
-</head>
+</h:head>
 <h:body>
 	<div id="page">
 		<div id="header">
@@ -41,11 +44,11 @@ html {
 		<div id="content">
 			<ui:insert name="content" />
 		</div>
-		<div id="footer">
+		<!-- 	<div id="footer">
 			<ui:insert name="footer">
 				<ui:include src="/template/footer.xhtml" />
 			</ui:insert>
-		</div>
+		</div> -->
 	</div>
 </h:body>
 </html>
