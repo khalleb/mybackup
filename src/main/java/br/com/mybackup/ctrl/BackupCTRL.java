@@ -5,21 +5,14 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.mybackup.bo.BackupBO;
 import br.com.mybackup.to.DataBackupTO;
+import br.com.mybackup.util.Msg;
 
 @ManagedBean
 @SessionScoped
 public class BackupCTRL {
 	
 	DataBackupTO	dataBackupTO;
-	
-	public BackupCTRL() {
-		try {
-			dataBackupTO = new DataBackupTO();
-		}
-		catch (Exception erro) {
-			System.out.println("Erro no construtor BackupCTRL " + erro.getMessage());
-		}
-	}
+	BackupBO		backupBO	= new BackupBO();
 	
 	public DataBackupTO getDataBackupTO() {
 		return dataBackupTO;
@@ -29,12 +22,31 @@ public class BackupCTRL {
 		this.dataBackupTO = dataBackupTO;
 	}
 	
+	public BackupCTRL() {
+		try {
+			startReadCreatproperties();
+		}
+		catch (Exception erro) {
+			System.out.println("Erro no construtor BackupCTRL " + erro.getMessage());
+		}
+	}
+	
+	public void startReadCreatproperties() throws Exception {
+		if (backupBO.consistsReadProperties() == null) {
+			dataBackupTO = new DataBackupTO();
+		}
+		else {
+			dataBackupTO = setPropertiesBackupTO();
+		}
+	}
+	
 	public String createProperties() {
 		try {
-			BackupBO backupBO = new BackupBO();
+			
 			String retunrConsistsCreateProperties = backupBO.consistsCreateProperties(dataBackupTO);
 			if (retunrConsistsCreateProperties.equalsIgnoreCase("ok")) {
-				System.out.println("Arquivo salvo com sucesso!");
+				System.out.println(Msg.msgGetProperties("retorno.msg.sucesso.salvar.properties"));
+				Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.salvar.properties"));
 			}
 			else {
 				return retunrConsistsCreateProperties;
@@ -44,6 +56,16 @@ public class BackupCTRL {
 			System.out.println("Erro no método createProperties " + erro.getMessage());
 		}
 		return "";
+	}
+	
+	public DataBackupTO setPropertiesBackupTO() {
+		try {
+			return backupBO.consistsReadProperties();
+		}
+		catch (Exception erro) {
+			System.out.println("Erro no método setPropertiesBackupTO " + erro.getMessage());
+			return null;
+		}
 	}
 	
 }

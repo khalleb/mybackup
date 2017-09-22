@@ -1,6 +1,8 @@
 package br.com.mybackup.bo;
 
+import java.io.File;
 import br.com.mybackup.dao.BackupDAO;
+import br.com.mybackup.dao.ConectionDAO;
 import br.com.mybackup.to.DataBackupTO;
 
 public class BackupBO {
@@ -51,4 +53,25 @@ public class BackupBO {
 		}
 		return returnConsistsDataBackup;
 	}
+	
+	public DataBackupTO consistsReadProperties() throws Exception {
+		boolean returnExistFileProperties = existFileProperties();
+		if (returnExistFileProperties) {
+			BackupDAO backupDAO = new BackupDAO();
+			DataBackupTO dataBackupTO = backupDAO.readProperties();
+			return dataBackupTO;
+		}
+		return null;
+	}
+	
+	public boolean existFileProperties() {
+		File file = ConectionDAO.getProperties();
+		if (file.exists()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

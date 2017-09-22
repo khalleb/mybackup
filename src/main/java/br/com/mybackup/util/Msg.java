@@ -1,5 +1,7 @@
 package br.com.mybackup.util;
 
+import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -22,9 +24,10 @@ public class Msg {
 	}
 	
 	// STICKS THE MESSAGE FROM THE FILE PROPERTIES FOR PRINTING.
-	public static void msgGetProperties(String key_properties) {
-		//tes
-		
+	public static String msgGetProperties(String key_properties) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("messages_pt_BR");
+		resourceBundle = ResourceBundle.getBundle("messages_pt_BR");
+		return resourceBundle.getString(key_properties);
 	}
 	
 }

@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.Properties;
 
 import br.com.mybackup.to.DataBackupTO;
+import br.com.mybackup.util.BackupProperties;
 
 public class BackupDAO {
 	
@@ -29,7 +29,7 @@ public class BackupDAO {
 	}
 	
 	public String createProperties(DataBackupTO backupTO) {
-		Properties properties = new Properties();
+		BackupProperties properties = new BackupProperties();
 		OutputStream outputStream = null;
 		try {
 			outputStream = new FileOutputStream(fileProperties);
@@ -58,7 +58,7 @@ public class BackupDAO {
 	public DataBackupTO readProperties() {
 		DataBackupTO dataBackupTO = new DataBackupTO();
 		try {
-			Properties properties = new Properties();
+			BackupProperties properties = new BackupProperties();
 			FileInputStream fileInputStream = null;
 			fileInputStream = new FileInputStream(fileProperties);
 			properties.load(fileInputStream);
