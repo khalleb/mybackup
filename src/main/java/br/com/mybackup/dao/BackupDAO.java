@@ -1,25 +1,26 @@
 package br.com.mybackup.dao;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import br.com.mybackup.to.DadosBackupTO;
+import br.com.mybackup.to.DataBackupTO;
 
 public class BackupDAO {
 	
-	private static String	PGDUMP				= "pgDump";
-	private static String	HOST_NAME			= "hostName";
-	private static String	PORT_COMUNICATION	= "portComunication";
-	private static String	DATABASE			= "database";
-	private static String	USER				= "user";
-	private static String	PASSWORD			= "password";
-	private static String	LOCATION_BACKUP		= "locationBackup";
-	private static String	TIME_BACKUP			= "timeBackup";
-	private static String	CLIENT_GOOGLEDRIVE	= "clientGoogleDrive";
-	private static String	ID_GOOGLEDRIVE		= "idGoogleDrive";
-	private static String	FOLDER_GOOGLEDRIVE	= "folderGoogleDrive";
+	private static String	PGDUMP				= "postgres.pgDump";
+	private static String	HOST_NAME			= "postgres.hostName";
+	private static String	PORT_COMUNICATION	= "postgres.portComunication";
+	private static String	DATABASE			= "postgres.database";
+	private static String	USER				= "postgres.user";
+	private static String	PASSWORD			= "postgres.password";
+	private static String	LOCATION_BACKUP		= "backup.locationBackup";
+	private static String	TIME_BACKUP			= "backup.timeBackup";
+	private static String	CLIENT_GOOGLEDRIVE	= "drive.clientGoogleDrive";
+	private static String	ID_GOOGLEDRIVE		= "drive.idGoogleDrive";
+	private static String	FOLDER_GOOGLEDRIVE	= "drive.folderGoogleDrive";
 	
 	File					fileProperties		= null;
 	
@@ -27,7 +28,7 @@ public class BackupDAO {
 		fileProperties = ConectionDAO.getProperties();
 	}
 	
-	public String createProperties(DadosBackupTO backupTO) {
+	public String createProperties(DataBackupTO backupTO) {
 		Properties properties = new Properties();
 		OutputStream outputStream = null;
 		try {
@@ -52,5 +53,32 @@ public class BackupDAO {
 			System.out.println("Erro no método createProperties " + erro.getMessage());
 		}
 		return properties.toString();
+	}
+	
+	public DataBackupTO readProperties() {
+		DataBackupTO dataBackupTO = new DataBackupTO();
+		try {
+			Properties properties = new Properties();
+			FileInputStream fileInputStream = null;
+			fileInputStream = new FileInputStream(fileProperties);
+			properties.load(fileInputStream);
+			
+			dataBackupTO.setPgDump(properties.getProperty(PGDUMP));
+			dataBackupTO.setHostName(properties.getProperty(HOST_NAME));
+			dataBackupTO.setPortComunication(properties.getProperty(PORT_COMUNICATION));
+			dataBackupTO.setDatabase(properties.getProperty(DATABASE));
+			dataBackupTO.setUser(properties.getProperty(USER));
+			dataBackupTO.setPassword(properties.getProperty(PASSWORD));
+			dataBackupTO.setLocationBackup(properties.getProperty(LOCATION_BACKUP));
+			dataBackupTO.setTimeBackup(properties.getProperty(TIME_BACKUP));
+			dataBackupTO.setClientGoogleDrive(properties.getProperty(CLIENT_GOOGLEDRIVE));
+			dataBackupTO.setIdGoogleDrive(properties.getProperty(ID_GOOGLEDRIVE));
+			dataBackupTO.setFolderGoogleDrive(properties.getProperty(FOLDER_GOOGLEDRIVE));
+			
+		}
+		catch (Exception erro) {
+			System.out.println("Erro no método readProperties " + erro.getMessage());
+		}
+		return dataBackupTO;
 	}
 }
