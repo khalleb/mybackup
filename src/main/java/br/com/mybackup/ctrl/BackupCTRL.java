@@ -44,7 +44,8 @@ public class BackupCTRL {
 		try {
 			String retunrConsistsCreateProperties = backupBO.consistsCreateProperties(dataBackupTO);
 			if (retunrConsistsCreateProperties.equalsIgnoreCase("ok")) {
-				System.out.println(Msg.msgGetProperties("retorno.msg.sucesso.salvar.properties"));
+				backupBO.stopBackupScheduled();
+				backupBO.backupScheduled(dataBackupTO);
 				Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.salvar.properties"));
 			}
 			else {
@@ -72,7 +73,6 @@ public class BackupCTRL {
 	public void backup() {
 		String returnConsistsBackupPostgres = backupBO.consistsBackupPostgres(dataBackupTO);
 		if (returnConsistsBackupPostgres.equalsIgnoreCase("ok")) {
-			System.out.println(Msg.msgGetProperties("retorno.msg.sucesso.do.backup"));
 			Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.do.backup"));
 		}
 		else {

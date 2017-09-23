@@ -27,6 +27,7 @@ public class Msg {
 	public static String msgGetProperties(String key_properties) {
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("messages_pt_BR");
 		resourceBundle = ResourceBundle.getBundle("messages_pt_BR");
+		System.out.println(resourceBundle.getString(key_properties));
 		return resourceBundle.getString(key_properties);
 	}
 	
