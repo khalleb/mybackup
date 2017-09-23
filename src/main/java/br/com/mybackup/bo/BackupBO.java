@@ -1,16 +1,20 @@
 package br.com.mybackup.bo;
 
 import java.io.File;
+
 import br.com.mybackup.dao.BackupDAO;
 import br.com.mybackup.dao.ConectionDAO;
+import br.com.mybackup.dao.PostgresDAO;
 import br.com.mybackup.to.DataBackupTO;
 
 public class BackupBO {
-	BackupDAO	backupDAO;
+	private BackupDAO	backupDAO;
+	private PostgresDAO	postgresDAO;
 	
 	public BackupBO() {
 		try {
 			backupDAO = new BackupDAO();
+			postgresDAO = new PostgresDAO();
 		}
 		catch (Exception erro) {
 			System.out.println("Error construtor BackupBO " + erro.getMessage());
@@ -18,6 +22,8 @@ public class BackupBO {
 	}
 	
 	public String consistsDataBackup(DataBackupTO dataBackupTO) {
+		File pathPGDump = new File(dataBackupTO.getPgDump());
+		
 		if (dataBackupTO.getPgDump().equals("") || dataBackupTO.getPgDump() == null) {
 			return "Input pgDump path is empty!";
 		}
@@ -41,6 +47,12 @@ public class BackupBO {
 		}
 		if (dataBackupTO.getTimeBackup().equals("") || dataBackupTO.getTimeBackup() == null) {
 			return "Input Time Backup empty!";
+		}
+		if (dataBackupTO.getNameBackup().equals("") || dataBackupTO.getNameBackup() == null) {
+			return "Input Time Backup empty!";
+		}
+		if (!pathPGDump.exists()) {
+			return "The path of pg_dump could not be found!";
 		}
 		return "ok";
 	}
@@ -74,4 +86,11 @@ public class BackupBO {
 		}
 	}
 	
+	public String consistsBackupPostgres(DataBackupTO dataBackupTO) {
+		String returnConnectBackupPostgres = postgresDAO.connectBackupPostgres(dataBackupTO);
+		if (returnConnectBackupPostgres.equalsIgnoreCase("ok")) {
+			return returnConnectBackupPostgres;
+		}
+		return returnConnectBackupPostgres;
+	}
 }

@@ -18,6 +18,7 @@ public class BackupDAO {
 	private static String	PASSWORD			= "postgres.password";
 	private static String	LOCATION_BACKUP		= "backup.locationBackup";
 	private static String	TIME_BACKUP			= "backup.timeBackup";
+	private static String	NAME_BACKUP			= "backup.nameBackup";
 	private static String	CLIENT_GOOGLEDRIVE	= "drive.clientGoogleDrive";
 	private static String	ID_GOOGLEDRIVE		= "drive.idGoogleDrive";
 	private static String	FOLDER_GOOGLEDRIVE	= "drive.folderGoogleDrive";
@@ -43,6 +44,7 @@ public class BackupDAO {
 			properties.setProperty(PASSWORD, backupTO.getPassword());
 			properties.setProperty(LOCATION_BACKUP, backupTO.getLocationBackup());
 			properties.setProperty(TIME_BACKUP, backupTO.getTimeBackup());
+			properties.setProperty(NAME_BACKUP, backupTO.getNameBackup());
 			properties.setProperty(CLIENT_GOOGLEDRIVE, backupTO.getClientGoogleDrive());
 			properties.setProperty(ID_GOOGLEDRIVE, backupTO.getIdGoogleDrive());
 			properties.setProperty(FOLDER_GOOGLEDRIVE, backupTO.getFolderGoogleDrive());
@@ -71,6 +73,7 @@ public class BackupDAO {
 			dataBackupTO.setPassword(properties.getProperty(PASSWORD));
 			dataBackupTO.setLocationBackup(properties.getProperty(LOCATION_BACKUP));
 			dataBackupTO.setTimeBackup(properties.getProperty(TIME_BACKUP));
+			dataBackupTO.setNameBackup(properties.getProperty(NAME_BACKUP));
 			dataBackupTO.setClientGoogleDrive(properties.getProperty(CLIENT_GOOGLEDRIVE));
 			dataBackupTO.setIdGoogleDrive(properties.getProperty(ID_GOOGLEDRIVE));
 			dataBackupTO.setFolderGoogleDrive(properties.getProperty(FOLDER_GOOGLEDRIVE));

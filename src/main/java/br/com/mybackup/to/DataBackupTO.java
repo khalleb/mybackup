@@ -14,6 +14,7 @@ public class DataBackupTO implements Serializable {
 	
 	private String				locationBackup;
 	private String				timeBackup;
+	private String				nameBackup;
 	
 	private String				clientGoogleDrive;
 	private String				idGoogleDrive;
@@ -81,6 +82,14 @@ public class DataBackupTO implements Serializable {
 	
 	public void setTimeBackup(String timeBackup) {
 		this.timeBackup = timeBackup;
+	}
+	
+	public String getNameBackup() {
+		return nameBackup;
+	}
+	
+	public void setNameBackup(String nameBackup) {
+		this.nameBackup = nameBackup;
 	}
 	
 	public String getClientGoogleDrive() {

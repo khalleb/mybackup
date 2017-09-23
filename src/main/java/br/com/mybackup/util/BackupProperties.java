@@ -10,7 +10,7 @@ public class BackupProperties extends Properties {
 	
 	private static final long	serialVersionUID	= 1L;
 	
-	/* SORTED PROPERTIES */
+	/* ORDENANDO CHAVES DO ARQUIVO PROPERTIES POR ORDEM ALFABETICA */
 	@Override
 	public Enumeration<Object> keys() {
 		
@@ -22,7 +22,7 @@ public class BackupProperties extends Properties {
 			keyList.add(keysEnum.nextElement());
 		}
 		Collections.sort(keyList, new Comparator<Object>() {
-			@Override    
+			@Override
 			public int compare(Object o1, Object o2) {
 				return o1.toString().compareTo(o2.toString());
 			}
