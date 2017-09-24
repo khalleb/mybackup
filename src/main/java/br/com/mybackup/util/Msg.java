@@ -31,4 +31,24 @@ public class Msg {
 		return resourceBundle.getString(key_properties);
 	}
 	
+	public static void versionSystem() {
+		System.out.println("  __  __       ____             _              __   __");
+		System.out.println(" |  \\/  |     |  _ \\           | |             \\ \\ / /");
+		System.out.println(" | \\  / |_   _| |_) | __ _  ___| | ___   _ _ __ \\ V / ");
+		System.out.println(" | |\\/| | | | |  _ < / _` |/ __| |/ / | | | '_ \\ > <  ");
+		System.out.println(" | |  | | |_| | |_) | (_| | (__|   <| |_| | |_) / . \\ ");
+		System.out.println(" |_|  |_|\\__, |____/ \\__,_|\\___|_|\\_\\\\__,_| .__/_/ \\_\\");
+		System.out.println("          __/ |                           | |");
+		System.out.println("         |___/                            |_|");
+		
+		msgGetProperties("sistema.nome");
+		msgGetProperties("sistema.versao");
+		// LINK PARA CRIAR ARTE
+		// http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
+		// FONT: Big
+		//Character Width: Default
+		//Character Height: Default
+		
+	}
+	
 }

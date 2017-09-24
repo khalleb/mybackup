@@ -4,7 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import br.com.mybackup.bo.BackupBO;
-import br.com.mybackup.util.UTIL;
+import br.com.mybackup.util.Msg;
 
 public class StartBackupScheduled implements ServletContextListener {
 	
@@ -16,7 +16,7 @@ public class StartBackupScheduled implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
-			UTIL.versionSystem();
+			Msg.versionSystem();
 			BackupBO backupBO = new BackupBO();
 			backupBO.consistBackupScheduled();
 		}

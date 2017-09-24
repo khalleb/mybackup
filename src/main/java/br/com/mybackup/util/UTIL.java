@@ -25,19 +25,4 @@ public class UTIL {
 		return minuto;
 	}
 	
-	public static void versionSystem() {
-		System.out.println(" __  __           ____                   _                          __  _  __   ");
-		System.out.println("|\\ \\/  |         |  _ \\                 | |                        / / | | \\ \\  ");
-		System.out.println("| \\  / |  _   _  | |_) |   __ _    ___  | | __  _   _   _ __      | |  | |  | | ");
-		System.out.println("| |\\/| | | | | | |  _ <   / _` |  / __| | |/ / | | | | | '_ \\    / /   | |   \\ \\");
-		System.out.println("| |  | | | |_| | | |_) | | (_| | | (__  |   <  | |_| | | |_) |   \\ \\   |_|   / /");
-		System.out.println("|_|  |_|  \\__, | |____/   \\__,_|  \\___| |_|\\_\\  \\__,_| | .__/     | |  (_)  | | ");
-		System.out.println("           __/ |                                       | |         \\_\\     /_/  ");
-		System.out.println("          |___/                                        |_|                      ");
-		
-		Msg.msgGetProperties("sistema.nome");
-		Msg.msgGetProperties("sistema.versao");
-		// http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
-		// LINK PARA CRIAR ARTE
-	}
 }
