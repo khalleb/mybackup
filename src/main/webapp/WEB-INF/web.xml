@@ -8,7 +8,7 @@
              br.com.mybackup.ctrl.StartBackupScheduled
         </listener-class>
    </listener>
-	<display-name>mybackup</display-name>
+	<display-name>mybackupx</display-name>
 	<welcome-file-list>
 		<welcome-file>pages/index.xhtml</welcome-file>
 	</welcome-file-list>
