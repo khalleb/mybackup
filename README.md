@@ -13,7 +13,7 @@ Inicializado a aplicação.
 
 
 
-![](./images/01.png =706x395)
+![](images/01.png)
 
 
 
