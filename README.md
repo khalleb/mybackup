@@ -19,5 +19,8 @@ Mais detalhes de como contribuir e enviar Pull Requests em [GitHub Collaborating
 [Como colaborar com projetos opensource com GitHub](http://www.youtube.com/watch?v=H3olaBo83As)
 
 
-<img src="images/img_01.png" width="400"/>
-<img src="images/img_02.png" width="400"/>
+<p align="center">
+  <img src="images/img_01.png" width="400"/>
+  <img src="images/img_02.png" width="400"/>
+</p>
+
