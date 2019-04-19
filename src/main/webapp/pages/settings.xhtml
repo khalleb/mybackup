@@ -18,20 +18,19 @@
 				<div id="Tabs" role="tabpanel">
 					<!-- Nav tabs - MENU -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li class="active"><a href="#postgresConfig"
-							aria-controls="postgresConfig" role="tab" data-toggle="tab">#{msg['config.aba.postgres']}</a></li>
-						<li><a href="#backup" aria-controls="backup" role="tab"
-							data-toggle="tab">#{msg['config.aba.backup']}</a></li>
+						<li class="active"><a href="#postgresConfig" aria-controls="postgresConfig" role="tab" data-toggle="tab">#{msg['config.aba.postgres']}</a></li>
 						<!-- <li><a href="#googleDrive" aria-controls="googleDrive" role="tab" data-toggle="tab">#{msg['config.aba.google.drive']}</a></li> -->
 						<li><a href="#sobreSistema" aria-controls="sobreSistema"
 							role="tab" data-toggle="tab">#{msg['config.aba.sobre']}</a></li>
 					</ul>
 					<!-- Body Pane Postgres -->
 					<div class="tab-content">
+					
 						<div role="tabpanel" class="tab-pane active" id="postgresConfig">
 							<div id="configDIVPostgres" class="container-fluid">
 
 								<h4 class="page-header">#{msg['config.head.postgres']}</h4>
+								
 								<div class="row">
 									<div class="form-group col-xs-12 input-group-md">
 										<label>#{msg['config.pgdump']}</label>
@@ -95,15 +94,10 @@
 										</p:password>
 									</div>
 								</div>
-
 							</div>
-						</div>
-
-						<!-- ************** TAB BACKUP LOCAL CONFIG ************** -->
-						<div role="tabpanel" class="tab-pane" id="backup">
-							<div id="configDibBackup" class="container-fluid">
-								<h4 class="page-header">#{msg['config.head.backup']}</h4>
-								<div class="row">
+							<div id="configDIVPostgres" class="container-fluid">
+								<h4 class="page-header">#{msg['config.local.backup']}</h4>
+																<div class="row">
 									<div class="form-group col-md-6 input-group-md">
 										<label>#{msg['config.local.backup']}</label>
 										<p:inputText id="backupLocalInput" class="form-control"
@@ -179,8 +173,9 @@
 								</div>
 							</div>
 						</div>
-
-
+						
+						
+						
 						<!-- ************** SOBRE ************** -->
 						<div role="tabpanel" class="tab-pane" id="sobreSistema">
 							<div id="sobreSistema" class="container-fluid">

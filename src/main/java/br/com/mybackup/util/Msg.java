@@ -43,6 +43,7 @@ public class Msg {
 		
 		msgGetProperties("sistema.nome");
 		msgGetProperties("sistema.versao");
+		System.out.println("\n");
 		// LINK PARA CRIAR ARTE
 		// http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 		// FONT: Big
