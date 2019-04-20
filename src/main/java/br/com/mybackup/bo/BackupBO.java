@@ -1,6 +1,8 @@
 package br.com.mybackup.bo;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -33,109 +35,138 @@ public class BackupBO {
 		}
 	}
 	
-	public String consistsDataBackup(DataBackupTO dataBackupTO) {
+	public String consistirDadosBackup(DataBackupTO dataBackupTO, List<DataBackupTO> listaDataBackupTO) {
 		File pathPGDump = new File(dataBackupTO.getPgDump());
 		
-		if (dataBackupTO.getPgDump().equals("") || dataBackupTO.getPgDump() == null) {
-			return "Input pgDump path is empty!";
-		}
-		if (dataBackupTO.getHostName().equals("") || dataBackupTO.getHostName() == null) {
-			return "Input HostName empty!";
-		}
-		if (dataBackupTO.getPortComunication().equals("") || dataBackupTO.getPortComunication() == null) {
-			return "Input Porta Comunication empty!";
-		}
-		if (dataBackupTO.getDatabase().equals("") || dataBackupTO.getDatabase() == null) {
-			return "Input Database empty!";
-		}
-		if (dataBackupTO.getUser().equals("") || dataBackupTO.getUser() == null) {
-			return "Input User empty!";
-		}
-		if (dataBackupTO.getPassword().equals("") || dataBackupTO.getPassword() == null) {
-			return "Input Password empty!";
-		}
-		if (dataBackupTO.getLocationBackup().equals("") || dataBackupTO.getLocationBackup() == null) {
-			return "Input Location Backup empty!";
-		}
-		if (dataBackupTO.getTimeBackup().equals("") || dataBackupTO.getTimeBackup() == null) {
-			return "Input Time Backup empty!";
-		}
-		if (dataBackupTO.getNameBackup().equals("") || dataBackupTO.getNameBackup() == null) {
-			return "Input Time Backup empty!";
+		if (dataBackupTO.getPgDump().isEmpty() || dataBackupTO.getPgDump() == null) {
+			return "Caminho do Pg Dump obrigatório!";
 		}
 		if (!pathPGDump.exists()) {
-			return "The path of pg_dump could not be found!";
+			return "O pg_dump.exe não foi encontrado no caminho especificado!";
+		}
+		if (dataBackupTO.getHostName().isEmpty() || dataBackupTO.getHostName() == null) {
+			return "HostName obrigatório!";
+		}
+		if (dataBackupTO.getPortaComunicacao().isEmpty() || dataBackupTO.getPortaComunicacao() == null) {
+			return "Porta de comunicação obrigatória!";
+		}
+		if (dataBackupTO.getNomeDatabase().isEmpty() || dataBackupTO.getNomeDatabase() == null) {
+			return "Nome do database obrigatório!";
+		}
+		if (dataBackupTO.getUsuario().isEmpty() || dataBackupTO.getUsuario() == null) {
+			return "Usuário obrigatório!";
+		}
+		if (dataBackupTO.getSenha().isEmpty() || dataBackupTO.getSenha() == null) {
+			return "Senha obrigatória!";
+		}
+		if (dataBackupTO.getLocalBackup().isEmpty() || dataBackupTO.getLocalBackup() == null) {
+			return "Local do backup obrigatório!";
+		}
+		if (dataBackupTO.getHorarioBackup().isEmpty() || dataBackupTO.getHorarioBackup() == null) {
+			return "Horário do backup obrigatório!";
+		}
+		if (dataBackupTO.getNomeArquivoBackup().isEmpty() || dataBackupTO.getNomeArquivoBackup() == null) {
+			return "Nome do backup obrigatório!";
+		}
+		String retorno = verificarExistenciaCadastro(dataBackupTO, listaDataBackupTO);
+		if(!retorno.equalsIgnoreCase("ok")) {
+			return retorno;
 		}
 		return "ok";
 	}
 	
-	public String consistsCreateProperties(DataBackupTO dataBackupTO) {
-		String returnConsistsDataBackup = consistsDataBackup(dataBackupTO);
-		if (returnConsistsDataBackup.equalsIgnoreCase("ok")) {
-			backupDAO.createProperties(dataBackupTO);
-			return returnConsistsDataBackup;
+	private String verificarExistenciaCadastro(DataBackupTO dataBackupTO, List<DataBackupTO> listaDataBackupTO) {
+		if(listaDataBackupTO != null && !listaDataBackupTO.isEmpty()) {
+			for(DataBackupTO item : listaDataBackupTO) {
+				if(item.getNomeDatabase().trim().equalsIgnoreCase(dataBackupTO.getNomeDatabase().trim())) {
+					if(item.getHorarioBackup().trim().equalsIgnoreCase(dataBackupTO.getHorarioBackup().trim())) {
+						return "Já existe um cadastro com o nome do banco de dados " + item.getNomeDatabase() + " e o horário do backup para as " + item.getHorarioBackup();
+					}
+				}
+			}
 		}
-		return returnConsistsDataBackup;
+		return "ok";
 	}
 	
-	public DataBackupTO consistsReadProperties() throws Exception {
-		boolean returnExistFileProperties = existFileProperties();
-		if (returnExistFileProperties) {
+	public String salvar(List<DataBackupTO> dataBackupTO) {
+		return backupDAO.salvar(dataBackupTO);
+	}
+	
+	public List<DataBackupTO> lerArquivoDePropriedades() throws Exception {
+		boolean verificar = existeArquivoConfiguracao();
+		List<DataBackupTO> dataBackupTO = new ArrayList<DataBackupTO>();
+		if (verificar) {
 			BackupDAO backupDAO = new BackupDAO();
-			DataBackupTO dataBackupTO = backupDAO.readProperties();
-			return dataBackupTO;
+			dataBackupTO = backupDAO.lerArquivoJson();
 		}
-		return null;
+		return dataBackupTO;
 	}
 	
-	public boolean existFileProperties() {
+	public boolean existeArquivoConfiguracao() {
 		File file = ConectionDAO.getProperties();
 		if (file.exists()) {
 			return true;
 		}
 		else {
+			System.out.println("Não foi possível obter o arquivo de configuração.");
 			return false;
 		}
 	}
 	
-	// VERIFICAR O RETORNO DO POSTGRES E FAZ O BACKUP.
-	public String consistsBackupPostgres(DataBackupTO dataBackupTO) {
-		String returnConnectBackupPostgres = postgresDAO.connectBackupPostgres(dataBackupTO); // BACKUP
-		if (returnConnectBackupPostgres.equalsIgnoreCase("ok")) {
-			return returnConnectBackupPostgres;
-		}
-		return returnConnectBackupPostgres;
+	public String fazerBackup(DataBackupTO dataBackupTO) {
+		return  postgresDAO.connectBackupPostgres(dataBackupTO);
 	}
 	
 	public void consistBackupScheduled() {
 		try {
-			DataBackupTO dataBackupTO = consistsReadProperties();
-			if (dataBackupTO != null) {
-				backupScheduled(dataBackupTO);
+			List<DataBackupTO> dataBackupTO = lerArquivoDePropriedades();
+			if (dataBackupTO != null && !dataBackupTO.isEmpty()) {
+				agendarTarefa(dataBackupTO);
 			}
 			else {
 				System.out.println("Arquivo de configuração não encontrado para fazer o backup agendado!");
 			}
-			
 		}
 		catch (Exception erro) {
 			System.out.println("Erro no método consistBackupScheduled " + erro.getMessage());
 		}
 	}
 	
-	// BACKUP AGENDADO.
-	public void backupScheduled(DataBackupTO dataBackupTO) {
-		try {
-			SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-			Scheduler scheduler = schedulerFactory.getScheduler();
-			scheduler.start();
-			JobDetail jobDetail = JobBuilder.newJob(BackupScheduledBO.class).withIdentity("BackupScheduledBO", "group1").build();
-			Trigger trigger = TriggerBuilder.newTrigger().withIdentity("myTrigger", "group1")
-					.withSchedule(CronScheduleBuilder.cronSchedule(cronBackupAutomatic(dataBackupTO))).build();
-			scheduler.scheduleJob(jobDetail, trigger);
+	public void agendarTarefa(List<DataBackupTO> dataBackupTO) {
+		if(dataBackupTO != null && !dataBackupTO.isEmpty()) {
+			for(DataBackupTO item : dataBackupTO) {
+				agendarBackup(item);	
+			}
 		}
-		catch (Exception erro) {
-			System.out.println("Erro no backupScheduled " + erro.getMessage());
+	}
+	
+	public void desagendarBackup(List<DataBackupTO> dataBackupTO) {
+		if(dataBackupTO != null && !dataBackupTO.isEmpty()) {
+			for(DataBackupTO item : dataBackupTO) {
+				try {
+					desagendarTarefa(item);	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	
+	// BACKUP AGENDADO.
+	public void agendarBackup(DataBackupTO dataBackupTO) {
+		try {
+			JobDetail job = JobBuilder.newJob(BackupScheduledBO.class)
+					.withIdentity("job" + dataBackupTO, "group" + dataBackupTO).build();
+
+			Trigger trigger = TriggerBuilder.newTrigger()
+					.withIdentity("cronTrigger" + dataBackupTO, "group" + dataBackupTO)
+					.withSchedule(CronScheduleBuilder.cronSchedule(cronBackupAutomatic(dataBackupTO))).build();
+
+			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
+			scheduler1.start();
+			scheduler1.scheduleJob(job, trigger);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -147,28 +178,25 @@ public class BackupBO {
 		return cron;
 	}
 	
-	public void stopBackupScheduled() throws InterruptedException {
+	public void desagendarTarefa(DataBackupTO dataBackupTO) throws InterruptedException {
 		try {
 			SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 			Scheduler scheduler = schedulerFactory.getScheduler();
-			JobDetail jobDetail = JobBuilder.newJob(BackupScheduledBO.class).withIdentity("BackupScheduledBO", "group1").build();
+			JobDetail jobDetail = JobBuilder.newJob(BackupScheduledBO.class).withIdentity("job" + dataBackupTO, "group" + dataBackupTO).build();
 			
 			Thread.sleep(6);
 			scheduler.interrupt(jobDetail.getKey());
 			Thread.sleep(2 * 1000L);
-			TriggerKey triggerKey = TriggerKey.triggerKey("BackupScheduledBO", "group1");
-			System.err.println("triggerKey " + triggerKey + " : " + jobDetail.getKey());
+			TriggerKey triggerKey = TriggerKey.triggerKey("cronTrigger" + dataBackupTO, "group" + dataBackupTO);
 			scheduler.unscheduleJob(triggerKey);
 			scheduler.interrupt(jobDetail.getKey());
-			scheduler.interrupt("BackupScheduledBO");
+			scheduler.interrupt("job" + dataBackupTO);
 			scheduler.deleteJob(jobDetail.getKey());
 			scheduler.shutdown();
 			scheduler.shutdown(false);
 		}
 		catch (SchedulerException erro) {
-			// TODO Auto-generated catch block
 			erro.printStackTrace();
 		}
 	}
-	
 }

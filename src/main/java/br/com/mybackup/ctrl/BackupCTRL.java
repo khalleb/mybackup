@@ -1,5 +1,8 @@
 package br.com.mybackup.ctrl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -10,73 +13,99 @@ import br.com.mybackup.util.Msg;
 @ManagedBean
 @SessionScoped
 public class BackupCTRL {
-	
-	DataBackupTO	dataBackupTO;
-	BackupBO		backupBO	= new BackupBO();
-	
+
+	DataBackupTO dataBackupTO;
+	List<DataBackupTO> listaDataBackupTO = new ArrayList<DataBackupTO>();
+	BackupBO backupBO = new BackupBO();
+
 	public DataBackupTO getDataBackupTO() {
 		return dataBackupTO;
 	}
-	
+
 	public void setDataBackupTO(DataBackupTO dataBackupTO) {
 		this.dataBackupTO = dataBackupTO;
 	}
-	
+
+	public List<DataBackupTO> getListaDataBackupTO() {
+		return listaDataBackupTO;
+	}
+
+	public void setListaDataBackupTO(List<DataBackupTO> listaDataBackupTO) {
+		this.listaDataBackupTO = listaDataBackupTO;
+	}
+
 	public BackupCTRL() {
 		try {
-			startReadCreatproperties();
-		}
-		catch (Exception erro) {
+			dataBackupTO = new DataBackupTO();
+			lerArquivo();
+		} catch (Exception erro) {
 			System.out.println("Erro no construtor BackupCTRL " + erro.getMessage());
 		}
 	}
-	
-	public void startReadCreatproperties() throws Exception {
-		if (backupBO.consistsReadProperties() == null) {
-			dataBackupTO = new DataBackupTO();
-		}
-		else {
-			dataBackupTO = setPropertiesBackupTO();
-		}
+
+	public void lerArquivo() throws Exception {
+		List<DataBackupTO> lista = backupBO.lerArquivoDePropriedades();
+		this.listaDataBackupTO = lista;
 	}
-	
-	public String createProperties() {
+
+	public String salvar() {
 		try {
-			String retunrConsistsCreateProperties = backupBO.consistsCreateProperties(dataBackupTO);
-			if (retunrConsistsCreateProperties.equalsIgnoreCase("ok")) {
-				backupBO.stopBackupScheduled();
-				backupBO.backupScheduled(dataBackupTO);
+			String retorno = backupBO.salvar(this.listaDataBackupTO);
+			if (retorno.equalsIgnoreCase("ok")) {
+				backupBO.desagendarBackup(this.listaDataBackupTO);
+				backupBO.agendarTarefa(this.listaDataBackupTO);
 				Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.salvar.properties"));
+			} else {
+				System.out.println(retorno);
+				Msg.info(retorno);
+				return retorno;
 			}
-			else {
-				System.out.println(retunrConsistsCreateProperties);
-				Msg.info(retunrConsistsCreateProperties);
-				return retunrConsistsCreateProperties;
-			}
-		}
-		catch (Exception erro) {
+		} catch (Exception erro) {
 			System.out.println("Erro no método createProperties " + erro.getMessage());
 		}
 		return "";
 	}
-	
-	public DataBackupTO setPropertiesBackupTO() {
-		try {
-			return backupBO.consistsReadProperties();
-		}
-		catch (Exception erro) {
-			System.out.println("Erro no método setPropertiesBackupTO " + erro.getMessage());
-			return null;
+
+	public void adicionarLista() {
+		String retorno = consitirDados();
+		if (retorno.equalsIgnoreCase("ok")) {
+			this.listaDataBackupTO.add(this.dataBackupTO);
+			this.dataBackupTO = new DataBackupTO();
+		} else {
+			Msg.warn(retorno);
 		}
 	}
-	
-	public void backup() {
-		String returnConsistsBackupPostgres = backupBO.consistsBackupPostgres(dataBackupTO);
-		if (returnConsistsBackupPostgres.equalsIgnoreCase("ok")) {
-			Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.do.backup"));
+
+	public void editarItemLista(DataBackupTO entidade) {
+		if (entidade != null) {
+			this.dataBackupTO = entidade;
+			removerItemLista(entidade);
 		}
-		else {
-			Msg.error(returnConsistsBackupPostgres);
+	}
+
+	private String consitirDados() {
+		String retorno = this.backupBO.consistirDadosBackup(this.dataBackupTO, this.listaDataBackupTO);
+		if (retorno.equalsIgnoreCase("ok")) {
+			return retorno;
+		}
+		return retorno;
+	}
+
+	public void removerItemLista(DataBackupTO entidade) {
+		this.listaDataBackupTO.remove(entidade);
+	}
+
+	public void backup() {
+		for (DataBackupTO item : this.listaDataBackupTO) {
+
+			String returnConsistsBackupPostgres = backupBO.fazerBackup(item);
+			if (returnConsistsBackupPostgres.equalsIgnoreCase("ok")) {
+				Msg.info(Msg.msgGetProperties("retorno.msg.sucesso.do.backup"));
+			} else {
+				Msg.error(returnConsistsBackupPostgres);
+			}
+			// COMO TESTE, IRÁ FAZER SOMENTE UM BACKUP, NO CASO O PRIMEIRO DA LISTA
+			break;
 		}
 	}
 }

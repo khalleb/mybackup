@@ -7,113 +7,69 @@ public class DataBackupTO implements Serializable {
 	
 	private String				pgDump;
 	private String				hostName;
-	private String				portComunication;
-	private String				database;
-	private String				user;
-	private String				password;
+	private String				portaComunicacao;
+	private String				nomeDatabase;
+	private String				usuario;
+	private String				senha;
 	
-	private String				locationBackup;
-	private String				timeBackup;
-	private String				nameBackup;
+	private String				localBackup;
+	private String				horarioBackup;
+	private String				nomeArquivoBackup;
 	
-	private String				clientGoogleDrive;
-	private String				idGoogleDrive;
-	private String				folderGoogleDrive;
 	
 	public String getPgDump() {
 		return pgDump;
 	}
-	
 	public void setPgDump(String pgDump) {
 		this.pgDump = pgDump;
 	}
-	
 	public String getHostName() {
 		return hostName;
 	}
-	
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
-	
-	public String getPortComunication() {
-		return portComunication;
+	public String getPortaComunicacao() {
+		return portaComunicacao;
 	}
-	
-	public void setPortComunication(String portComunication) {
-		this.portComunication = portComunication;
+	public void setPortaComunicacao(String portaComunicacao) {
+		this.portaComunicacao = portaComunicacao;
 	}
-	
-	public String getDatabase() {
-		return database;
+	public String getNomeDatabase() {
+		return nomeDatabase;
 	}
-	
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setNomeDatabase(String nomeDatabase) {
+		this.nomeDatabase = nomeDatabase;
 	}
-	
-	public String getUser() {
-		return user;
+	public String getUsuario() {
+		return usuario;
 	}
-	
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
-	
-	public String getPassword() {
-		return password;
+	public String getSenha() {
+		return senha;
 	}
-	
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
-	
-	public String getLocationBackup() {
-		return locationBackup;
+	public String getLocalBackup() {
+		return localBackup;
 	}
-	
-	public void setLocationBackup(String locationBackup) {
-		this.locationBackup = locationBackup;
+	public void setLocalBackup(String localBackup) {
+		this.localBackup = localBackup;
 	}
-	
-	public String getTimeBackup() {
-		return timeBackup;
+	public String getHorarioBackup() {
+		return horarioBackup;
 	}
-	
-	public void setTimeBackup(String timeBackup) {
-		this.timeBackup = timeBackup;
+	public void setHorarioBackup(String horarioBackup) {
+		this.horarioBackup = horarioBackup;
 	}
-	
-	public String getNameBackup() {
-		return nameBackup;
+	public String getNomeArquivoBackup() {
+		return nomeArquivoBackup;
 	}
-	
-	public void setNameBackup(String nameBackup) {
-		this.nameBackup = nameBackup;
-	}
-	
-	public String getClientGoogleDrive() {
-		return clientGoogleDrive;
-	}
-	
-	public void setClientGoogleDrive(String clientGoogleDrive) {
-		this.clientGoogleDrive = clientGoogleDrive;
-	}
-	
-	public String getIdGoogleDrive() {
-		return idGoogleDrive;
-	}
-	
-	public void setIdGoogleDrive(String idGoogleDrive) {
-		this.idGoogleDrive = idGoogleDrive;
-	}
-	
-	public String getFolderGoogleDrive() {
-		return folderGoogleDrive;
-	}
-	
-	public void setFolderGoogleDrive(String folderGoogleDrive) {
-		this.folderGoogleDrive = folderGoogleDrive;
+	public void setNomeArquivoBackup(String nomeArquivoBackup) {
+		this.nomeArquivoBackup = nomeArquivoBackup;
 	}
 	
 }

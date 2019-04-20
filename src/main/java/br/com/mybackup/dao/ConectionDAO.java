@@ -6,8 +6,8 @@ import java.io.File;
  * AS A PATTERN THE ARQUIVO PROPERTIES WILL BE CREATED WITHIN THE CONTAINER (TOMCAT).
  */
 public class ConectionDAO {
-	// FILE NAME CONFIGURATION PROPERTIES
-	private static String	FILE_PROPERTIES	= "backup-config.properties";
+	// NOME DO ARQUIVO DE CONFIGURAÇÃO JSON
+	private static String	FILE_PROPERTIES	= "backup-config.json";
 	
 	public static File getProperties() {
 		File file = new File(FILE_PROPERTIES);

@@ -43,20 +43,20 @@ public class PostgresDAO {
 			commands.add(HOST);
 			commands.add(dataBackupTO.getHostName());
 			commands.add(PORT);
-			commands.add(dataBackupTO.getPortComunication());
+			commands.add(dataBackupTO.getPortaComunicacao());
 			commands.add(USER);
-			commands.add(dataBackupTO.getUser());
+			commands.add(dataBackupTO.getUsuario());
 			commands.add(FORMAT);
 			commands.add(CLEAN);
 			commands.add(BLOBS);
 			commands.add(PROGRESS);
 			commands.add(NAME_FILE);
 			commands.add(nameFileBackup(dataBackupTO));
-			commands.add(dataBackupTO.getDatabase());
+			commands.add(dataBackupTO.getNomeDatabase());
 			
 			// CRIA O PROCESSO DE BACKUP
 			ProcessBuilder processBuilder = new ProcessBuilder(commands);
-			processBuilder.environment().put("PGPASSWORD", dataBackupTO.getPassword());
+			processBuilder.environment().put("PGPASSWORD", dataBackupTO.getSenha());
 			final Process process = processBuilder.start();
 			
 			final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -76,10 +76,10 @@ public class PostgresDAO {
 				deleteBackupPostegres(dataBackupTO);
 				return returnLinePostgres;
 			}
-			
 			bufferedReader.close();
 			process.waitFor();
 			process.destroy();
+			System.out.println("Backup feito com sucesso");
 			
 		}
 		catch (Exception erro) {
@@ -92,7 +92,14 @@ public class PostgresDAO {
 	// EX.: dws_2017-08-18_21-51.backup
 	public String nameFileBackup(DataBackupTO dataBackupTO) {
 		UTIL util = new UTIL();
-		String nameFile = dataBackupTO.getLocationBackup() + "\\" + dataBackupTO.getNameBackup() + "_" + util.getDateTime() + EXTENSION_BACKUP;
+		String separador = null;
+		//LINUX
+		if(System.getProperties().get("file.separator").equals("/")) {
+			separador = "/";
+		}else { // WINDOWS
+			separador = "\\";
+		}
+		String nameFile = dataBackupTO.getLocalBackup() + separador + dataBackupTO.getNomeArquivoBackup() + "_" + util.getDateTime() + EXTENSION_BACKUP;
 		return nameFile;
 	}
 	
