@@ -3,7 +3,7 @@
 Bem vindos ao MyBackuX, um programa desenvolvido na liguagem Java para auxiliar no backup de banco de dados do postgres.
 
 ## Pré-Requisitos ##
-* Java 8
+* Java 7
 * TomCat7 ou superior
 
 ## Download  ##

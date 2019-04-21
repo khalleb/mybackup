@@ -152,9 +152,13 @@
 
 
 							<!-- ************** LISTA ************** -->
-
-							<h:dataTable styleClass="table table-striped"
-								var="listaDataBackupTO" value="#{backupCTRL.listaDataBackupTO}">
+							<div class="row">
+								<div class="form-group col-xs-12 input-group-md text-center">
+									<h:outputText style="font-size:25px;" value="#{msg['config.lista.vazia']}" rendered="#{empty backupCTRL.listaDataBackupTO}" />
+								</div>
+							</div>
+							<h:dataTable styleClass="table table-striped" rendered="#{not empty  backupCTRL.listaDataBackupTO}"
+								var="listaDataBackupTO" value="#{backupCTRL.listaDataBackupTO}" >
 								<h:column>
 									<f:facet name="header">Nome do banco</f:facet>
 									<h:outputText value="#{listaDataBackupTO.nomeDatabase}" />
