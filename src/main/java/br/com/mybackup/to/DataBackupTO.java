@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class DataBackupTO implements Serializable {
 	private static final long	serialVersionUID	= 2149773880652369056L;
 	
-	private String				pgDump;
-	private String				hostName;
-	private String				portaComunicacao;
-	private String				nomeDatabase;
-	private String				usuario;
-	private String				senha;
+	private String	pgDump;
+	private String	hostName;
+	private String	portaComunicacao;
+	private String	nomeDatabase;
+	private String	usuario;
+	private String	senha;
 	
-	private String				localBackup;
-	private String				horarioBackup;
-	private String				nomeArquivoBackup;
+	private String	localBackup;
+	private String	horarioBackup;
+	private String	nomeArquivoBackup;
 	
 	
 	public String getPgDump() {

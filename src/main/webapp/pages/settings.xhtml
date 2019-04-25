@@ -18,10 +18,9 @@
 				<div id="Tabs" role="tabpanel">
 					<!-- Nav tabs - MENU -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li class="active"><a href="#postgresConfig"
-							aria-controls="postgresConfig" role="tab" data-toggle="tab">#{msg['config.aba.postgres']}</a></li>
-						<li><a href="#sobreSistema" aria-controls="sobreSistema"
-							role="tab" data-toggle="tab">#{msg['config.aba.sobre']}</a></li>
+						<li class="active"><a href="#postgresConfig" aria-controls="postgresConfig" role="tab" data-toggle="tab">#{msg['config.aba.postgres']}</a></li>
+						<li><a href="#abaBackupArquivos" aria-controls="abaBackupArquivos" role="tab" data-toggle="tab">#{msg['config.aba.backup.arquivos']}</a></li>
+						<li><a href="#sobreSistema" aria-controls="sobreSistema" role="tab" data-toggle="tab">#{msg['config.aba.sobre']}</a></li>
 					</ul>
 					<!-- Body Pane Postgres -->
 					<div class="tab-content">
@@ -152,53 +151,141 @@
 
 
 							<!-- ************** LISTA ************** -->
-							<div class="row">
-								<div class="form-group col-xs-12 input-group-md text-center">
-									<h:outputText style="font-size:25px;" value="#{msg['config.lista.vazia']}" rendered="#{empty backupCTRL.listaDataBackupTO}" />
-								</div>
-							</div>
-							<h:dataTable styleClass="table table-striped" rendered="#{not empty  backupCTRL.listaDataBackupTO}"
-								var="listaDataBackupTO" value="#{backupCTRL.listaDataBackupTO}" >
-								<h:column>
-									<f:facet name="header">Nome do banco</f:facet>
-									<h:outputText value="#{listaDataBackupTO.nomeDatabase}" />
-								</h:column>
-
-								<h:column>
-									<f:facet name="header">Nome do Backup</f:facet>
-									<h:outputText value="#{listaDataBackupTO.nomeArquivoBackup}" />
-								</h:column>
-
-								<h:column>
-									<f:facet name="header">Horário</f:facet>
-									<h:outputText value="#{listaDataBackupTO.horarioBackup}" />
-								</h:column>
-
-								<h:column>
-									<f:facet name="header">Local do backup</f:facet>
-									<h:outputText value="#{listaDataBackupTO.localBackup}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">Ação</f:facet>
-									<div>
-										<div>
-											<h:commandLink id="btnEditarItemLista"
-												style="margin-right:10px" type="button" title="Editar"
-												action="#{backupCTRL.editarItemLista(listaDataBackupTO)}"
-												styleClass="btn btn-primary">
-												<span class="glyphicon glyphicon-pencil"></span>
-											</h:commandLink>
-											<h:commandLink id="btnExcluirItemLista" type="button"
-												title="Excluir"
-												action="#{backupCTRL.removerItemLista(listaDataBackupTO)}"
-												styleClass="btn btn-danger">
-												<span class="glyphicon glyphicon-trash"></span>
-											</h:commandLink>
-										</div>
+							<div id="configDIVBackupDados" class="container-fluid">
+								<div class="row">
+									<div class="form-group col-xs-12 input-group-md text-center">
+										<h:outputText style="font-size:25px;" value="#{msg['config.lista.vazia']}" rendered="#{empty backupCTRL.listaDataBackupTO}" />
 									</div>
-								</h:column>
-							</h:dataTable>
+								</div>
+								<h:dataTable styleClass="table table-striped" rendered="#{not empty  backupCTRL.listaDataBackupTO}"
+									var="listaDataBackupTO" value="#{backupCTRL.listaDataBackupTO}" >
+									<h:column>
+										<f:facet name="header">Nome do banco</f:facet>
+										<h:outputText value="#{listaDataBackupTO.nomeDatabase}" />
+									</h:column>
+	
+									<h:column>
+										<f:facet name="header">Nome do Backup</f:facet>
+										<h:outputText value="#{listaDataBackupTO.nomeArquivoBackup}" />
+									</h:column>
+	
+									<h:column>
+										<f:facet name="header">Horário</f:facet>
+										<h:outputText value="#{listaDataBackupTO.horarioBackup}" />
+									</h:column>
+	
+									<h:column>
+										<f:facet name="header">Local do backup</f:facet>
+										<h:outputText value="#{listaDataBackupTO.localBackup}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Ação</f:facet>
+										<div>
+											<div>
+												<h:commandLink id="btnEditarItemLista"
+													style="margin-right:10px" type="button" title="Editar"
+													action="#{backupCTRL.editarItemLista(listaDataBackupTO)}"
+													styleClass="btn btn-primary">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</h:commandLink>
+												<h:commandLink id="btnExcluirItemLista" type="button"
+													title="Excluir"
+													action="#{backupCTRL.removerItemLista(listaDataBackupTO)}"
+													styleClass="btn btn-danger">
+													<span class="glyphicon glyphicon-trash"></span>
+												</h:commandLink>
+											</div>
+										</div>
+									</h:column>
+								</h:dataTable>
+							</div>
 						</div>
+						
+						<!-- ************** ABA BACKUP ARQUIVOS ************** -->
+						<div role="tabpanel" class="tab-pane" id="abaBackupArquivos">
+							<div id="abaArquivosBackup" class="container-fluid">
+								<h4 class="page-header">#{msg['config.local.backup']}</h4>
+								<div class="row">
+									<div class="form-group col-md-6 input-group-md">
+										<label>#{msg['config.local.backup']}</label>
+										<p:inputText id="inputLocalBackupArquivo" class="form-control"
+											required="false"
+											requiredMessage="#{msg['persitir.local.backup']}"
+											placeholder="#{msg['config.placeholder.local.backup']}"
+											maxlength="60" value="#{backupCTRL.dataBackupTO.localBackup}">
+											<f:validateLength maximum="60" minimum="3"></f:validateLength>
+										</p:inputText>
+									</div>
+									<div class="form-group col-md-3 input-group-md">
+										<label>#{msg['config.horario.backup']}</label>
+										<p:inputMask id="inputHorarioBackuivoArquivo" class="form-control"
+											required="false"
+											requiredMessage="#{msg['persitir.horario.backup']}"
+											mask="99:99"
+											validatorMessage="Verifique o formato da hora do backup"
+											placeholder="#{msg['config.placeholder.horario.backup']}"
+											maxlength="5"
+											value="#{backupCTRL.dataBackupTO.horarioBackup}">
+											<f:validateLength maximum="5" minimum="4"></f:validateLength>
+											<f:validateRegex
+												pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"></f:validateRegex>
+										</p:inputMask>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-4 input-group-md">
+										<label>#{msg['config.backup.nome']}</label>
+										<p:inputText id="inputNomePastaBackup" class="form-control"
+											required="false"
+											requiredMessage="#{msg['persitir.nome.backup']}"
+											placeholder="#{msg['config.placeholder.nome.backup']}"
+											maxlength="60"
+											value="#{backupCTRL.dataBackupTO.nomeArquivoBackup}">
+											<f:validateLength maximum="60" minimum="2"></f:validateLength>
+										</p:inputText>
+									</div>
+								</div>
+								
+								<div class="container">
+									 <div class="row">
+									 	<div class="col-md-2">
+											<p:fileUpload   mode="simple" />
+										</div>
+										<div class="col-md-8 col-md-offset-2">
+											<h:dataTable styleClass="table table-striped" rendered="#{not empty  backupCTRL.listaDataBackupTO}"
+												var="listaDataBackupTO" value="#{backupCTRL.listaDataBackupTO}" >
+												<h:column>
+													<f:facet name="header">Nome do banco</f:facet>
+													<h:outputText value="#{listaDataBackupTO.nomeDatabase}" />
+												</h:column>
+				
+												<h:column>
+													<f:facet name="header">Nome do Backup</f:facet>
+													<h:outputText value="#{listaDataBackupTO.nomeArquivoBackup}" />
+												</h:column>
+				
+												<h:column>
+													<f:facet name="header">Ação</f:facet>
+													<div>
+														<div>
+															<h:commandLink id="btnExclsdfdsfuirItemLista" type="button"
+																title="Excluir"
+																action="#{backupCTRL.removerItemLista(listaDataBackupTO)}"
+																styleClass="btn btn-danger">
+																<span class="glyphicon glyphicon-trash"></span>
+															</h:commandLink>
+														</div>
+													</div>
+												</h:column>
+											</h:dataTable>
+										</div>
+										
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
 
 						<!-- ************** SOBRE ************** -->
 						<div role="tabpanel" class="tab-pane" id="sobreSistema">
@@ -220,6 +307,7 @@
 							</div>
 						</div>
 					</div>
+					
 				</div>
 
 				<!-- ************** BOTÕES ************** -->
