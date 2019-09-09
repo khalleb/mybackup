@@ -2,12 +2,15 @@ package br.com.mybackup.dao;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mybackup.to.DataBackupTO;
 import br.com.mybackup.util.UTIL;
+import exceptions.BackupException;
 
 // C:/Program Files/PostgreSQL/9.3/bin\pg_dump.exe
 //--host localhost
@@ -34,7 +37,7 @@ public class PostgresDAO {
 	private static String	EXTENSION_BACKUP	= ".backup";
 	
 	public String connectBackupPostgres(DataBackupTO dataBackupTO) {
-		String returnLinePostgres = null;
+		String mensagemRetorno = "ok";
 		try {
 			final List<String> commands = new ArrayList<String>();
 			
@@ -57,36 +60,41 @@ public class PostgresDAO {
 			// CRIA O PROCESSO DE BACKUP
 			ProcessBuilder processBuilder = new ProcessBuilder(commands);
 			processBuilder.environment().put("PGPASSWORD", dataBackupTO.getSenha());
-			final Process process = processBuilder.start();
 			
-			final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			String line = bufferedReader.readLine();
+			processBuilder.redirectErrorStream(true);
+			Process process = processBuilder.start();
+			print(process.getInputStream());
 			
-			int contLine = 0;
-			while (line != null) {
-				System.out.println(line);
-				returnLinePostgres = line;
-				line = bufferedReader.readLine();
-				contLine = contLine + 1;
-			}
-			// VERIFICA A QUANTIDADE DE LINHAS QUE É VISUALIZADA NO PROCESSO DE BACKUP,
-			// MAS SE RETORNA MENOS DE 15 LINHAS, ENTÃO
-			// RETORNA A LINHA DO ERRO
-			if (contLine < 15) {
-				deleteBackupPostegres(dataBackupTO);
-				return returnLinePostgres;
-			}
-			bufferedReader.close();
-			process.waitFor();
 			process.destroy();
 			System.out.println("Backup feito com sucesso");
 			
 		}
 		catch (Exception erro) {
-			System.out.println("Erro no métodoconnectBackupPostgres" + erro.getMessage());
+			mensagemRetorno = erro.getMessage();
+			System.err.println(erro.getMessage());
 		}
-		return "ok";
+		return mensagemRetorno;
 	}
+	
+	private String print(InputStream inputStream){
+        InputStreamReader streamReader = new InputStreamReader( inputStream );
+        BufferedReader reader = new BufferedReader( streamReader );
+        String linha;
+        StringBuilder builder = new StringBuilder();
+        try {
+            while( (linha = reader.readLine()) != null ){
+                    System.out.println(linha);
+                    builder.append(linha);
+                    if(linha.contains("ERROR")) {
+                    	throw new BackupException("Erro ao executar o processo: " + linha);
+                    }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+    
 	
 	// NOME DO BACKUP
 	// EX.: dws_2017-08-18_21-51.backup

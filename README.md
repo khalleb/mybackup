@@ -1,6 +1,6 @@
 # MyBackupX - Backup para Postgres #
 ## Descrição do Projeto
-Bem vindos ao MyBackuX, um programa desenvolvido na liguagem Java para auxiliar no backup de banco de dados do postgres.
+Bem vindo ao MyBackuX, um programa desenvolvido na liguagem Java para auxiliar no backup do banco postgres.
 
 ## Pré-Requisitos ##
 * Java 7
@@ -26,4 +26,3 @@ Mais detalhes de como contribuir e enviar Pull Requests em [GitHub Collaborating
   <img src="images/img_01.png" width="400"/>
   <img src="images/img_02.png" width="400"/>
 </p>
-
