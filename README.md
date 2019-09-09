@@ -7,7 +7,7 @@ Bem vindo ao MyBackuX, um programa desenvolvido na liguagem Java para auxiliar n
 * TomCat7 ou superior
 
 ## Download  ##
-Download do arquivo `WAR` [Aqui](https://github.com/khalleb/mybackupX/tree/v1.5.7/bin-versao/)
+Download do arquivo `WAR` [Aqui](https://github.com/khalleb/mybackupX/tree/v1.5.8/bin-versao/)
 
 
 ## Uso ##
