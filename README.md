@@ -1,8 +1,15 @@
 <h1 align="center">MyBackupX</h1>
 
 <p align="center">
-  <a href="https://github.com/khalleb/mybackupX/blob/master/bin-versao/mybackupx.war">
-    <img src="https://img.shields.io/github/v/release/khalleb/mybackupX?style=plastic">
+
+  <a>
+    <img src="https://img.shields.io/github/v/tag/khalleb/mybackupX?style=plastic">
+  </a>
+  <a>
+    <img src="https://img.shields.io/github/last-commit/khalleb/mybackupX?style=plastic">
+  </a>
+  <a>
+    <img src="https://img.shields.io/github/repo-size/khalleb/mybackupX?style=plastic">
   </a>
 </p>
 
@@ -10,9 +17,6 @@
 <p align="center">
   Bem vindo ao MyBackuX, um programa desenvolvido na liguagem Java para auxiliar no backup do banco postgres.
 </p>
-
-## Development Status
-[Release ![Release Version](https://img.shields.io/github/release/espressif/arduino-esp32.svg?style=plastic)
 
 
 ## Pré-Requisitos
