@@ -11,6 +11,9 @@
   <a>
     <img src="https://img.shields.io/github/repo-size/khalleb/mybackupX?style=plastic">
   </a>
+  <a>
+    <img src="https://img.shields.io/github/languages/top/khalleb/myBackupX?style=plastic">
+  </a>
 </p>
 
 
@@ -22,9 +25,6 @@
 ## Pré-Requisitos
 * Java 7
 * TomCat7 ou superior
-
-## Download
-Download do arquivo `WAR` [Aqui](https://github.com/khalleb/mybackupX/tree/v1.5.8/bin-versao/)
 
 
 ## Como utilizar
